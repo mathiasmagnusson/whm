@@ -4,12 +4,10 @@ pub type Float = f64;
 pub type Float = f32;
 
 mod generic;
-mod vector3;
-mod vector4;
+mod vector;
 
 pub use generic::*;
-pub use vector3::Vector3;
-pub use vector4::Vector4;
+pub use vector::*;
 
 #[cfg(test)]
 mod tests;
