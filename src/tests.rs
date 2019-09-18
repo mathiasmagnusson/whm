@@ -34,3 +34,17 @@ fn binomial() {
 		(4 + 5) * (4 + 5) * (4 + 5) * (4 + 5) * (4 + 5) * (4 + 5) * (4 + 5)
 	);
 }
+#[test]
+fn solve_mat4x3() {
+	let mat = Matrix4x3::from([
+		1.0, 1.0, 1.0, 7.0,
+		1.0, 2.0, 3.0, 11.0,
+		2.0, 1.0, 2.0, 12.0,
+	]);
+
+	let solution = mat.solve();
+
+	assert_eq!(solution.x(), 4.0);
+	assert_eq!(solution.y(), 2.0);
+	assert_eq!(solution.z(), 1.0);
+}
