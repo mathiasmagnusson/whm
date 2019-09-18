@@ -37,9 +37,9 @@ fn binomial() {
 #[test]
 fn solve_mat4x3() {
 	let mat = Matrix4x3::from([
-		1.0, 1.0, 1.0, 7.0,
-		1.0, 2.0, 3.0, 11.0,
-		2.0, 1.0, 2.0, 12.0,
+		Vector4::new(1.0, 1.0, 1.0, 7.0),
+		Vector4::new(1.0, 2.0, 3.0, 11.0),
+		Vector4::new(2.0, 1.0, 2.0, 12.0),
 	]);
 
 	let solution = mat.solve();
