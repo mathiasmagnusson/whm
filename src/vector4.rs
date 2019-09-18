@@ -1,11 +1,11 @@
 use crate::Float;
 
 #[derive(Debug, PartialEq, Clone, Copy)]
-pub struct Vec4 {
+pub struct Vector4 {
 	v: [Float; 4]
 }
 
-impl Vec4 {
+impl Vector4 {
 	pub const fn new(v0: Float, v1: Float, v2: Float, v3: Float) -> Self {
 		Self { v: [v0, v1, v2, v3] }
 	}
@@ -45,9 +45,9 @@ impl Vec4 {
 	pub fn mag(&self) -> Float {
 		self.mag_sq().sqrt()
 	}
-	pub fn normalized(&self) -> Vec4 {
+	pub fn normalized(&self) -> Self {
 		let mag = self.mag();
-		Vec4 {
+		Self {
 			v: [
 				self[0] / mag,
 				self[1] / mag,
@@ -64,7 +64,7 @@ impl Vec4 {
 	}
 }
 
-impl From<(Float, Float, Float, Float)> for Vec4 {
+impl From<(Float, Float, Float, Float)> for Vector4 {
 	fn from(v: (Float, Float, Float, Float)) -> Self {
 		Self {
 			v: [
@@ -77,20 +77,20 @@ impl From<(Float, Float, Float, Float)> for Vec4 {
 	}
 }
 
-impl std::ops::Index<usize> for Vec4 {
+impl std::ops::Index<usize> for Vector4 {
 	type Output = Float;
 	fn index(&self, i: usize) -> &Self::Output {
 		&self.v[i]
 	}
 }
 
-impl std::ops::IndexMut<usize> for Vec4 {
+impl std::ops::IndexMut<usize> for Vector4 {
 	fn index_mut(&mut self, i: usize) -> &mut Self::Output {
 		&mut self.v[i]
 	}
 }
 
-impl std::ops::Add for Vec4 {
+impl std::ops::Add for Vector4 {
 	type Output = Self;
 	fn add(self, other: Self) -> Self::Output {
 		Self {
@@ -104,7 +104,7 @@ impl std::ops::Add for Vec4 {
 	}
 }
 
-impl std::ops::Sub for Vec4 {
+impl std::ops::Sub for Vector4 {
 	type Output = Self;
 	fn sub(self, other: Self) -> Self::Output {
 		Self {
@@ -118,7 +118,7 @@ impl std::ops::Sub for Vec4 {
 	}
 }
 
-impl std::ops::Mul<Float> for Vec4 {
+impl std::ops::Mul<Float> for Vector4 {
 	type Output = Self;
 	fn mul(self, scalar: Float) -> Self::Output {
 		Self {
@@ -132,7 +132,7 @@ impl std::ops::Mul<Float> for Vec4 {
 	}
 }
 
-impl std::ops::Div<Float> for Vec4 {
+impl std::ops::Div<Float> for Vector4 {
 	type Output = Self;
 	fn div(self, scalar: Float) -> Self::Output {
 		Self {
@@ -146,7 +146,7 @@ impl std::ops::Div<Float> for Vec4 {
 	}
 }
 
-impl std::ops::AddAssign for Vec4 {
+impl std::ops::AddAssign for Vector4 {
 	fn add_assign(&mut self, other: Self) {
 		self[0] += other[0];
 		self[1] += other[1];
@@ -155,7 +155,7 @@ impl std::ops::AddAssign for Vec4 {
 	}
 }
 
-impl std::ops::SubAssign for Vec4 {
+impl std::ops::SubAssign for Vector4 {
 	fn sub_assign(&mut self, other: Self) {
 		self[0] -= other[0];
 		self[1] -= other[1];
@@ -164,7 +164,7 @@ impl std::ops::SubAssign for Vec4 {
 	}
 }
 
-impl std::ops::MulAssign<Float> for Vec4 {
+impl std::ops::MulAssign<Float> for Vector4 {
 	fn mul_assign(&mut self, scalar: Float) {
 		self[0] *= scalar;
 		self[1] *= scalar;
@@ -173,7 +173,7 @@ impl std::ops::MulAssign<Float> for Vec4 {
 	}
 }
 
-impl std::ops::DivAssign<Float> for Vec4 {
+impl std::ops::DivAssign<Float> for Vector4 {
 	fn div_assign(&mut self, scalar: Float) {
 		self[0] /= scalar;
 		self[1] /= scalar;
