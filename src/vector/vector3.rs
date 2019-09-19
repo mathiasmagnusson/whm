@@ -68,6 +68,12 @@ impl From<(Float, Float, Float)> for Vector3 {
 	}
 }
 
+impl From<[Float; 3]> for Vector3 {
+	fn from(v: [Float; 3]) -> Self {
+		Self { v }
+	}
+}
+
 impl std::ops::Index<usize> for Vector3 {
 	type Output = Float;
 	fn index(&self, i: usize) -> &Self::Output {

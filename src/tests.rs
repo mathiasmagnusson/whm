@@ -37,14 +37,26 @@ fn binomial() {
 #[test]
 fn solve_mat4x3() {
 	let mat = Matrix4x3::from([
-		Vector4::new(1.0, 1.0, 1.0, 7.0),
-		Vector4::new(1.0, 2.0, 3.0, 11.0),
-		Vector4::new(2.0, 1.0, 2.0, 12.0),
+		1.0, 1.0, 1.0,  7.0,
+		1.0, 2.0, 3.0, 11.0,
+		2.0, 1.0, 2.0, 12.0,
 	]);
 
-	let solution = mat.solve();
+	assert_eq!(mat.solve(), Ok(Vector3::new(4.0, 2.0, 1.0)));
 
-	assert_eq!(solution.x(), 4.0);
-	assert_eq!(solution.y(), 2.0);
-	assert_eq!(solution.z(), 1.0);
+	let mat = Matrix4x3::from([
+		[1.0,  2.0,  3.0, -1.0],
+		[2.0,  4.0,  7.0,  0.0],
+		[2.0,  5.0, 10.0,  5.0],
+	]);
+
+	assert_eq!(mat.solve(), Ok(Vector3::new(-5.0, -1.0, 2.0)));
+
+	let mat = Matrix4x3::from([
+		Vector4::new(1.0, 0.0, 0.0, 4.0),
+		[0.0, 1.0, 0.0, 2.0].into(),
+		(0.0, 0.0, 1.0, 0.0).into(),
+	]);
+
+	assert_eq!(mat.solve(), Ok((4.0, 2.0, 0.0).into()));
 }
