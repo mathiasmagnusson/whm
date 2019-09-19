@@ -19,23 +19,20 @@ impl Matrix4x3 {
 		}
 	}
 	pub fn solve(mut self) -> Vector3 {
-		self[0] /= self[0][0];
+		// Gauss part
+		for rn in 0..Self::height() {
+			self[rn] /= self[rn][rn];
+			for row in rn+1..Self::height() {
+				self[row] -= self[rn] * self[row][rn];
+			}
+		}
 
-		self[1] -= self[0] * self[1][0];
-
-		self[2] -= self[0] * self[2][0];
-
-		self[1] /= self[1][1];
-
-		self[2] -= self[1] * self[2][1];
-
-		self[2] /= self[2][2];
-
-		self[1] -= self[2] * self[1][2];
-
-		self[0] -= self[2] * self[0][2];
-
-		self[0] -= self[1] * self[0][1];
+		// Jordan part
+		for rn in (1..Self::height()).rev() {
+			for row in (0..rn).rev() {
+				self[row] -= self[rn] * self[row][rn];
+			}
+		}
 
 		Vector3::new(self[0][3], self[1][3], self[2][3])
 	}
