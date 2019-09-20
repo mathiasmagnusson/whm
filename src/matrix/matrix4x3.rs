@@ -4,34 +4,23 @@ use crate::Vector4;
 
 use std::fmt;
 
-#[derive(Clone)]
-pub struct Matrix4x3 {
-	v: [Vector4; 3],
-}
+#[derive(Clone, PartialEq)]
+pub struct Matrix4x3([Vector4; 3]);
 
 impl Matrix4x3 {
 	pub const fn zero() -> Self {
-		Self { v: [Vector4::new(0.0, 0.0, 0.0, 0.0); 3] }
+		Self([Vector4::new(0.0, 0.0, 0.0, 0.0); 3])
 	}
 	pub const fn identity() -> Self {
-		Self {
-			v: [
-				Vector4::new(1.0, 0.0, 0.0, 0.0),
-				Vector4::new(0.0, 1.0, 0.0, 0.0),
-				Vector4::new(0.0, 0.0, 1.0, 0.0),
-			]
-		}
+		Self([
+			Vector4::new(1.0, 0.0, 0.0, 0.0),
+			Vector4::new(0.0, 1.0, 0.0, 0.0),
+			Vector4::new(0.0, 0.0, 1.0, 0.0),
+		])
 	}
 	pub fn solve(mut self) -> Result<Vector3, ()> {
 		// Gauss part
 		for rn in 0..Self::height() {
-			// If this row has a 0 in the main
-			// diagonal, look through the rest
-			// of the rows to find one that does
-			// not have a zero in the collumn we
-			// are looking for. If one is found,
-			// we swap places of these two, otherwise
-			// return an error.
 			if self[rn][rn] == 0.0 {
 				let row = (rn+1..Self::height()).find(|row| self[*row][rn] != 0.0);
 				if let Some(row) = row {
@@ -67,44 +56,40 @@ impl Matrix4x3 {
 
 impl From<[Vector4; 3]> for Matrix4x3 {
 	fn from(v: [Vector4; 3]) -> Self {
-		Self { v }
+		Self(v)
 	}
 }
 
 impl From<[[Float; 4]; 3]> for Matrix4x3 {
 	fn from(v: [[Float; 4]; 3]) -> Self {
-		Self {
-			v: [
-				Vector4::from(v[0]),
-				Vector4::from(v[1]),
-				Vector4::from(v[2]),
-			]
-		}
+		Self([
+			Vector4::from(v[0]),
+			Vector4::from(v[1]),
+			Vector4::from(v[2]),
+		])
 	}
 }
 
 impl From<[Float; 4*3]> for Matrix4x3 {
 	fn from(v: [Float; 4*3]) -> Self {
-		Self {
-			v: [
-				Vector4::new(v[0], v[1], v[2], v[3]),
-				Vector4::new(v[4], v[5], v[6], v[7]),
-				Vector4::new(v[8], v[9], v[10], v[11]),
-			]
-		}
+		Self([
+			Vector4::new(v[0], v[1], v[2], v[3]),
+			Vector4::new(v[4], v[5], v[6], v[7]),
+			Vector4::new(v[8], v[9], v[10], v[11]),
+		])
 	}
 }
 
 impl std::ops::Index<usize> for Matrix4x3 {
 	type Output = Vector4;
 	fn index(&self, i: usize) -> &Self::Output {
-		&self.v[i]
+		&self.0[i]
 	}
 }
 
 impl std::ops::IndexMut<usize> for Matrix4x3 {
 	fn index_mut(&mut self, i: usize) -> &mut Self::Output {
-		&mut self.v[i]
+		&mut self.0[i]
 	}
 }
 

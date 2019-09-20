@@ -1,13 +1,11 @@
 use crate::Float;
 
 #[derive(Debug, PartialEq, Clone, Copy)]
-pub struct Vector4 {
-	v: [Float; 4]
-}
+pub struct Vector4([Float; 4]);
 
 impl Vector4 {
 	pub const fn new(v0: Float, v1: Float, v2: Float, v3: Float) -> Self {
-		Self { v: [v0, v1, v2, v3] }
+		Self([v0, v1, v2, v3])
 	}
 	pub fn x(&self) -> Float {
 		self[0]
@@ -47,14 +45,12 @@ impl Vector4 {
 	}
 	pub fn normalized(&self) -> Self {
 		let mag = self.mag();
-		Self {
-			v: [
-				self[0] / mag,
-				self[1] / mag,
-				self[2] / mag,
-				self[3] / mag,
-			]
-		}
+		Self ([
+			self[0] / mag,
+			self[1] / mag,
+			self[2] / mag,
+			self[3] / mag,
+		])
 	}
 	pub fn normalize(&mut self) {
 		let mag = self.mag();
@@ -66,33 +62,31 @@ impl Vector4 {
 
 impl From<(Float, Float, Float, Float)> for Vector4 {
 	fn from(v: (Float, Float, Float, Float)) -> Self {
-		Self {
-			v: [
-				v.0,
-				v.1,
-				v.2,
-				v.3,
-			]
-		}
+		Self ([
+			v.0,
+			v.1,
+			v.2,
+			v.3,
+		])
 	}
 }
 
 impl From<[Float; 4]> for Vector4 {
 	fn from(v: [Float; 4]) -> Self {
-		Self { v }
+		Self(v)
 	}
 }
 
 impl std::ops::Index<usize> for Vector4 {
 	type Output = Float;
 	fn index(&self, i: usize) -> &Self::Output {
-		&self.v[i]
+		&self.0[i]
 	}
 }
 
 impl std::ops::IndexMut<usize> for Vector4 {
 	fn index_mut(&mut self, i: usize) -> &mut Self::Output {
-		&mut self.v[i]
+		&mut self.0[i]
 	}
 }
 
@@ -106,56 +100,48 @@ impl std::ops::Neg for Vector4 {
 impl std::ops::Add for Vector4 {
 	type Output = Self;
 	fn add(self, other: Self) -> Self::Output {
-		Self {
-			v: [
-				self[0] + other[0],
-				self[1] + other[1],
-				self[2] + other[2],
-				self[3] + other[3],
-			]
-		}
+		Self ([
+			self[0] + other[0],
+			self[1] + other[1],
+			self[2] + other[2],
+			self[3] + other[3],
+		])
 	}
 }
 
 impl std::ops::Sub for Vector4 {
 	type Output = Self;
 	fn sub(self, other: Self) -> Self::Output {
-		Self {
-			v: [
-				self[0] - other[0],
-				self[1] - other[1],
-				self[2] - other[2],
-				self[3] - other[3],
-			]
-		}
+		Self ([
+			self[0] - other[0],
+			self[1] - other[1],
+			self[2] - other[2],
+			self[3] - other[3],
+		])
 	}
 }
 
 impl std::ops::Mul<Float> for Vector4 {
 	type Output = Self;
 	fn mul(self, scalar: Float) -> Self::Output {
-		Self {
-			v: [
-				self[0] * scalar,
-				self[1] * scalar,
-				self[2] * scalar,
-				self[3] * scalar,
-			]
-		}
+		Self ([
+			self[0] * scalar,
+			self[1] * scalar,
+			self[2] * scalar,
+			self[3] * scalar,
+		])
 	}
 }
 
 impl std::ops::Div<Float> for Vector4 {
 	type Output = Self;
 	fn div(self, scalar: Float) -> Self::Output {
-		Self {
-			v: [
-				self[0] / scalar,
-				self[1] / scalar,
-				self[2] / scalar,
-				self[3] / scalar,
-			]
-		}
+		Self ([
+			self[0] / scalar,
+			self[1] / scalar,
+			self[2] / scalar,
+			self[3] / scalar,
+		])
 	}
 }
 
