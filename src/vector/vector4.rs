@@ -96,6 +96,13 @@ impl std::ops::IndexMut<usize> for Vector4 {
 	}
 }
 
+impl std::ops::Neg for Vector4 {
+	type Output = Vector4;
+	fn neg(self) -> Self::Output {
+		[-self[0], -self[1], -self[2], -self[3]].into()
+	}
+}
+
 impl std::ops::Add for Vector4 {
 	type Output = Self;
 	fn add(self, other: Self) -> Self::Output {

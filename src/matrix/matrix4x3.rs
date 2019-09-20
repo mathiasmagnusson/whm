@@ -108,6 +108,17 @@ impl std::ops::IndexMut<usize> for Matrix4x3 {
 	}
 }
 
+impl std::ops::Neg for Matrix4x3 {
+	type Output = Matrix4x3;
+	fn neg(self) -> Self::Output {
+		[
+			-self[0],
+			-self[1],
+			-self[2],
+		].into()
+	}
+}
+
 impl fmt::Debug for Matrix4x3 {
 	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
 		// write!(
