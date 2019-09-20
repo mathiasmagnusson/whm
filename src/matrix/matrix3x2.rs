@@ -108,7 +108,7 @@ impl fmt::Debug for Matrix3x2 {
 		writeln!(f, "Matrix3x2")?;
 		writeln!(f, "┌╴    ╷ ╶┐")?;
 		writeln!(f, "│{: >2} {: >2}│{: >2}│", self[0][0], self[0][1], self[0][2])?;
-		writeln!(f, "│        │  │")?;
+		writeln!(f, "│     │  │")?;
 		writeln!(f, "│{: >2} {: >2}│{: >2}│", self[1][0], self[1][1], self[1][2])?;
 		writeln!(f, "└╴    ╵ ╶┘")?;
 
