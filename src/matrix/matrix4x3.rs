@@ -31,16 +31,19 @@ impl Matrix4x3 {
 					return Err(());
 				}
 			}
-			self[rn] /= self[rn][rn];
+			let v = self[rn][rn];
+			self[rn] /= v;
 			for row in rn+1..Self::height() {
-				self[row] -= self[rn] * self[row][rn];
+				let v = self[rn] * self[row][rn];
+				self[row] -= v;
 			}
 		}
 
 		// Jordan part
 		for rn in (1..Self::height()).rev() {
 			for row in (0..rn).rev() {
-				self[row] -= self[rn] * self[row][rn];
+				let v = self[rn] * self[row][rn];
+				self[row] -= v;
 			}
 		}
 
