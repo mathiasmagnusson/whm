@@ -31,7 +31,7 @@ macro_rules! def_matrix {
 			}
 			fn identity() -> Self {
 				assert_eq!($n, $m);
-				
+
 				let mut this = Self::zero();
 
 				for i in 0..$n {
