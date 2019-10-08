@@ -106,3 +106,7 @@ fn mat_eq() {
 	assert_eq!(Matrix3x4::identity(), Matrix3x4::identity());
 	assert_ne!(Matrix3x4::identity(), -Matrix3x4::identity());
 }
+#[test]
+fn phi() {
+	assert_eq!(Integer::phi(710), 280)
+}

@@ -71,7 +71,7 @@ macro_rules! for_all_integer_types {
 				!self.factors().iter().any(|a| f.iter().any(|b| *a == *b))
 			}
 			fn phi(self) -> usize {
-				(0..self).filter(|n| self.is_coprime(*n)).count()
+				(1..self).filter(|n| self.is_coprime(*n)).count()
 			}
 		}
 	};
