@@ -25,7 +25,7 @@ impl Vector3 {
 	pub fn b(&self) -> Float {
 		self[2]
 	}
-	pub fn len() -> usize {
+	pub const fn len() -> usize {
 		3
 	}
 	pub fn mag_sq(&self) -> Float {

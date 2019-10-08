@@ -13,7 +13,7 @@ impl Vector2 {
 	pub fn y(&self) -> Float {
 		self[1]
 	}
-	pub fn len() -> usize {
+	pub const fn len() -> usize {
 		2
 	}
 	pub fn mag_sq(&self) -> Float {

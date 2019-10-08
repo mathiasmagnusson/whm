@@ -31,7 +31,7 @@ impl Vector4 {
 	pub fn a(&self) -> Float {
 		self[3]
 	}
-	pub fn len() -> usize {
+	pub const fn len() -> usize {
 		4
 	}
 	pub fn mag_sq(&self) -> Float {
