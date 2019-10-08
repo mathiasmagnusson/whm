@@ -7,6 +7,9 @@ impl Vector2 {
 	pub const fn new(v0: Float, v1: Float) -> Self {
 		Self([v0, v1])
 	}
+	pub const fn zero() -> Self {
+		Self([0.0, 0.0])
+	}
 	pub fn x(&self) -> Float {
 		self[0]
 	}
