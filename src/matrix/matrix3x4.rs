@@ -2,12 +2,12 @@ use crate::Float;
 use crate::Vector3;
 use crate::Vector4;
 
-use std::fmt;
+use std::{fmt, ops};
 
 #[derive(Clone, PartialEq)]
-pub struct Matrix4x3([Vector4; 3]);
+pub struct Matrix3x4([Vector4; 3]);
 
-impl Matrix4x3 {
+impl Matrix3x4 {
 	pub const fn zero() -> Self {
 		Self([Vector4::new(0.0, 0.0, 0.0, 0.0); 3])
 	}
@@ -57,13 +57,13 @@ impl Matrix4x3 {
 	}
 }
 
-impl From<[Vector4; 3]> for Matrix4x3 {
+impl From<[Vector4; 3]> for Matrix3x4 {
 	fn from(v: [Vector4; 3]) -> Self {
 		Self(v)
 	}
 }
 
-impl From<[[Float; 4]; 3]> for Matrix4x3 {
+impl From<[[Float; 4]; 3]> for Matrix3x4 {
 	fn from(v: [[Float; 4]; 3]) -> Self {
 		Self([
 			Vector4::from(v[0]),
@@ -73,7 +73,7 @@ impl From<[[Float; 4]; 3]> for Matrix4x3 {
 	}
 }
 
-impl From<[Float; 4*3]> for Matrix4x3 {
+impl From<[Float; 4*3]> for Matrix3x4 {
 	fn from(v: [Float; 4*3]) -> Self {
 		Self([
 			Vector4::new(v[0], v[1], v[2], v[3]),
@@ -83,21 +83,21 @@ impl From<[Float; 4*3]> for Matrix4x3 {
 	}
 }
 
-impl std::ops::Index<usize> for Matrix4x3 {
+impl ops::Index<usize> for Matrix3x4 {
 	type Output = Vector4;
 	fn index(&self, i: usize) -> &Self::Output {
 		&self.0[i]
 	}
 }
 
-impl std::ops::IndexMut<usize> for Matrix4x3 {
+impl ops::IndexMut<usize> for Matrix3x4 {
 	fn index_mut(&mut self, i: usize) -> &mut Self::Output {
 		&mut self.0[i]
 	}
 }
 
-impl std::ops::Neg for Matrix4x3 {
-	type Output = Matrix4x3;
+impl ops::Neg for Matrix3x4 {
+	type Output = Matrix3x4;
 	fn neg(self) -> Self::Output {
 		[
 			-self[0],
@@ -107,16 +107,35 @@ impl std::ops::Neg for Matrix4x3 {
 	}
 }
 
-impl fmt::Debug for Matrix4x3 {
+impl ops::Add for Matrix3x4 {
+	type Output = Matrix3x4;
+	fn add(self, rhs: Matrix3x4) -> Self::Output {
+		[
+			self[0] + rhs[0],
+			self[1] + rhs[1],
+			self[2] + rhs[2],
+		].into()
+	}
+}
+
+impl ops::AddAssign for Matrix3x4 {
+	fn add_assign(&mut self, rhs: Matrix3x4) {
+		self[0] += rhs[0];
+		self[1] += rhs[1];
+		self[2] += rhs[2];
+	}
+}
+
+impl fmt::Debug for Matrix3x4 {
 	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
 		// write!(
 		// 	f,
-		// 	"Matrix4x3 [\n    {}, {}, {}, {},\n    {}, {}, {}, {},\n    {}, {}, {}, {},\n]",
+		// 	"Matrix3x4 [\n    {}, {}, {}, {},\n    {}, {}, {}, {},\n    {}, {}, {}, {},\n]",
 		// 	self[0][0], self[0][1], self[0][2], self[0][3],
 		// 	self[1][0], self[1][1], self[1][2], self[1][3],
 		// 	self[2][0], self[2][1], self[2][2], self[2][3],
 		// )
-		writeln!(f, "Matrix4x3")?;
+		writeln!(f, "Matrix3x4")?;
 		writeln!(f, "┌╴       ╷ ╶┐")?;
 		writeln!(f, "│{: >2} {: >2} {: >2}│{: >2}│", self[0][0], self[0][1], self[0][2], self[0][3])?;
 		writeln!(f, "│        │  │")?;

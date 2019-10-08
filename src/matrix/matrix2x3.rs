@@ -5,9 +5,9 @@ use crate::Vector3;
 use std::fmt;
 
 #[derive(Clone, PartialEq)]
-pub struct Matrix3x2([Vector3; 2]);
+pub struct Matrix2x3([Vector3; 2]);
 
-impl Matrix3x2 {
+impl Matrix2x3 {
 	pub const fn zero() -> Self {
 		Self([Vector3::new(0.0, 0.0, 0.0); 2])
 	}
@@ -59,13 +59,13 @@ impl Matrix3x2 {
 	}
 }
 
-impl From<[Vector3; 2]> for Matrix3x2 {
+impl From<[Vector3; 2]> for Matrix2x3 {
 	fn from(v: [Vector3; 2]) -> Self {
 		Self(v)
 	}
 }
 
-impl From<[[Float; 3]; 2]> for Matrix3x2 {
+impl From<[[Float; 3]; 2]> for Matrix2x3 {
 	fn from(v: [[Float; 3]; 2]) -> Self {
 		Self([
 			Vector3::from(v[0]),
@@ -74,7 +74,7 @@ impl From<[[Float; 3]; 2]> for Matrix3x2 {
 	}
 }
 
-impl From<[Float; 3*2]> for Matrix3x2 {
+impl From<[Float; 3*2]> for Matrix2x3 {
 	fn from(v: [Float; 3*2]) -> Self {
 		Self([
 			Vector3::new(v[0], v[1], v[2]),
@@ -83,20 +83,20 @@ impl From<[Float; 3*2]> for Matrix3x2 {
 	}
 }
 
-impl std::ops::Index<usize> for Matrix3x2 {
+impl std::ops::Index<usize> for Matrix2x3 {
 	type Output = Vector3;
 	fn index(&self, i: usize) -> &Self::Output {
 		&self.0[i]
 	}
 }
 
-impl std::ops::IndexMut<usize> for Matrix3x2 {
+impl std::ops::IndexMut<usize> for Matrix2x3 {
 	fn index_mut(&mut self, i: usize) -> &mut Self::Output {
 		&mut self.0[i]
 	}
 }
 
-impl std::ops::Neg for Matrix3x2 {
+impl std::ops::Neg for Matrix2x3 {
 	type Output = Self;
 	fn neg(self) -> Self::Output {
 		[
@@ -106,9 +106,9 @@ impl std::ops::Neg for Matrix3x2 {
 	}
 }
 
-impl fmt::Debug for Matrix3x2 {
+impl fmt::Debug for Matrix2x3 {
 	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-		writeln!(f, "Matrix3x2")?;
+		writeln!(f, "Matrix2x3")?;
 		writeln!(f, "┌╴    ╷ ╶┐")?;
 		writeln!(f, "│{: >2} {: >2}│{: >2}│", self[0][0], self[0][1], self[0][2])?;
 		writeln!(f, "│     │  │")?;

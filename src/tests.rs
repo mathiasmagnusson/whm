@@ -36,7 +36,7 @@ fn binomial() {
 }
 #[test]
 fn solve_mat4x3() {
-	let mat = Matrix4x3::from([
+	let mat = Matrix3x4::from([
 		1.0, 1.0, 1.0,  7.0,
 		1.0, 2.0, 3.0, 11.0,
 		2.0, 1.0, 2.0, 12.0,
@@ -44,7 +44,7 @@ fn solve_mat4x3() {
 
 	assert_eq!(mat.solve(), Ok(Vector3::new(4.0, 2.0, 1.0)));
 
-	let mat = Matrix4x3::from([
+	let mat = Matrix3x4::from([
 		[1.0,  2.0,  3.0, -1.0],
 		[2.0,  4.0,  7.0,  0.0],
 		[2.0,  5.0, 10.0,  5.0],
@@ -52,7 +52,7 @@ fn solve_mat4x3() {
 
 	assert_eq!(mat.solve(), Ok(Vector3::new(-5.0, -1.0, 2.0)));
 
-	let mat = Matrix4x3::from([
+	let mat = Matrix3x4::from([
 		Vector4::new(1.0, 0.0, 0.0, 4.0),
 		[0.0, 1.0, 0.0, 2.0].into(),
 		(0.0, 0.0, 1.0, 0.0).into(),
@@ -62,14 +62,14 @@ fn solve_mat4x3() {
 }
 #[test]
 fn solve_mat3x2() {
-	let mat = Matrix3x2::from([
+	let mat = Matrix2x3::from([
 		1.0, 0.0, 69.0,
 		0.0, 1.0, 420.0,
 	]);
 
 	assert_eq!(mat.solve(), Ok((69.0, 420.0).into()));
 
-	let mat = Matrix3x2::from([
+	let mat = Matrix2x3::from([
 		[69.0, 1337.0, 420.0],
 		[1337.0, 420.0, 69.0],
 	]);
@@ -79,23 +79,23 @@ fn solve_mat3x2() {
 #[test]
 fn mat_neg() {
 	assert_eq!(
-		Matrix4x3::from([
+		Matrix3x4::from([
 			1.0, std::f32::consts::SQRT_2, 3.14, -5.0,
 			-123.0, 0.0, -std::f32::consts::FRAC_PI_3, -1.0,
 			0.0, 1.0, -6.28, -1.0,
 		]),
-		-Matrix4x3::from([
+		-Matrix3x4::from([
 			-1.0, -std::f32::consts::SQRT_2, -3.14, 5.0,
 			123.0, -0.0, std::f32::consts::FRAC_PI_3, 1.0,
 			0.0, -1.0, 6.28, 1.0,
 		]),
 	);
 	assert_eq!(
-		Matrix3x2::from([
+		Matrix2x3::from([
 			7.0, -std::f32::consts::FRAC_2_PI, -7.2,
 			0.0, 3.13, std::f32::consts::LN_10,
 		]),
-		-Matrix3x2::from([
+		-Matrix2x3::from([
 			-7.0, std::f32::consts::FRAC_2_PI, 7.2,
 			-0.0, -3.13, -std::f32::consts::LN_10,
 		])
@@ -103,6 +103,6 @@ fn mat_neg() {
 }
 #[test]
 fn mat_eq() {
-	assert_eq!(Matrix4x3::identity(), Matrix4x3::identity());
-	assert_ne!(Matrix4x3::identity(), -Matrix4x3::identity());
+	assert_eq!(Matrix3x4::identity(), Matrix3x4::identity());
+	assert_ne!(Matrix3x4::identity(), -Matrix3x4::identity());
 }
