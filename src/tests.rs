@@ -110,3 +110,8 @@ fn mat_eq() {
 fn phi() {
 	assert_eq!(Integer::phi(710), 280)
 }
+#[test]
+fn mod_exp() {
+	assert_eq!(11.mod_exp(13, 53), 52);
+	assert_eq!(1.mod_exp(1337, 53), 1);
+}

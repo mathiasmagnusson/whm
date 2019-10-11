@@ -8,6 +8,7 @@ pub trait Integer {
 	fn is_prime(self) -> bool;
 	fn is_coprime(self, other: Self) -> bool;
 	fn phi(self) -> usize;
+	fn mod_exp(self, e: Self, n: Self) -> Self;
 }
 
 macro_rules! for_all_integer_types {
@@ -72,6 +73,9 @@ macro_rules! for_all_integer_types {
 			}
 			fn phi(self) -> usize {
 				(1..self).filter(|n| self.is_coprime(*n)).count()
+			}
+			fn mod_exp(self, e: Self, n: Self) -> Self {
+				(0..e).fold(1, |a, _| (a * self % n))
 			}
 		}
 	};
