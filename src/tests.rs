@@ -108,7 +108,7 @@ fn mat_eq() {
 }
 #[test]
 fn phi() {
-	assert_eq!(Integer::phi(710), 280)
+	assert_eq!(Integer::phi(710), 280);
 }
 #[test]
 fn mod_exp() {
