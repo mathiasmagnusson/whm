@@ -1,22 +1,33 @@
 use crate::{Float, Vector2};
 
-use std::ops;
+use super::Matrix;
+
+use std::{fmt, ops};
 
 #[derive(Clone, PartialEq)]
 pub struct Matrix2x2([Vector2; 2]);
 
 impl Matrix2x2 {
-	pub const fn zero() -> Self {
+}
+
+impl Matrix for Matrix2x2 {
+	fn zero() -> Self {
 		Self([Vector2::new(0.0, 0.0); 2])
 	}
-	pub const fn identity() -> Self {
+	fn identity() -> Self {
 		Self([
 			Vector2::new(1.0, 0.0),
 			Vector2::new(0.0, 1.0),
 		])
 	}
-	pub const fn size() -> usize {
+	fn width() -> usize {
+		Vector2::len()
+	}
+	fn height() -> usize {
 		2
+	}
+	fn det(&self) -> Float {
+		self[0][0] * self[1][1] - self[0][1] * self[1][0]
 	}
 }
 
@@ -54,6 +65,18 @@ impl ops::Index<usize> for Matrix2x2 {
 impl ops::IndexMut<usize> for Matrix2x2 {
 	fn index_mut(&mut self, i: usize) -> &mut Self::Output {
 		&mut self.0[i]
+	}
+}
+
+impl fmt::Debug for Matrix2x2 {
+	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+		writeln!(f, "┌╴        ╶┐")?;
+		writeln!(f, "│{: >2} {: >2} {: >2} │", self[0][0], self[0][1], self[0][2])?;
+		writeln!(f, "│          │")?;
+		writeln!(f, "│{: >2} {: >2} {: >2} │", self[1][0], self[1][1], self[1][2])?;
+		writeln!(f, "└╴        ╶┘")?;
+
+		Ok(())
 	}
 }
 
@@ -105,11 +128,11 @@ impl ops::Mul for Matrix2x2 {
 	type Output = Self;
 	fn mul(self, rhs: Self) -> Self {
 		fn calc_element(a: &Matrix2x2, b: &Matrix2x2, r: usize, c: usize) -> Float {
-			(0..Matrix2x2::size()).map(|i| a[r][i]*b[i][c]).sum()
+			(0..Matrix2x2::width()).map(|i| a[r][i]*b[i][c]).sum()
 		}
 		[
-			[ calc_element(&self, &rhs, 0, 0), calc_element(&self, &rhs, 0, 1) ],
-			[ calc_element(&self, &rhs, 1, 0), calc_element(&self, &rhs, 1, 1) ],
+			calc_element(&self, &rhs, 0, 0), calc_element(&self, &rhs, 0, 1),
+			calc_element(&self, &rhs, 1, 0), calc_element(&self, &rhs, 1, 1),
 		].into()
 	}
 }

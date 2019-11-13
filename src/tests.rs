@@ -34,71 +34,61 @@ fn binomial() {
 		(4 + 5) * (4 + 5) * (4 + 5) * (4 + 5) * (4 + 5) * (4 + 5) * (4 + 5)
 	);
 }
-#[test]
-fn solve_mat4x3() {
-	let mat = Matrix3x4::from([
-		1.0, 1.0, 1.0,  7.0,
-		1.0, 2.0, 3.0, 11.0,
-		2.0, 1.0, 2.0, 12.0,
-	]);
+// #[test]
+// fn solve_mat4x3() {
+// 	let mat = Matrix3x4::from([
+// 		1.0, 1.0, 1.0,  7.0,
+// 		1.0, 2.0, 3.0, 11.0,
+// 		2.0, 1.0, 2.0, 12.0,
+// 	]);
 
-	assert_eq!(mat.solve(), Ok(Vector3::new(4.0, 2.0, 1.0)));
+// 	assert_eq!(mat.solve(), Ok(Vector3::new(4.0, 2.0, 1.0)));
 
-	let mat = Matrix3x4::from([
-		[1.0,  2.0,  3.0, -1.0],
-		[2.0,  4.0,  7.0,  0.0],
-		[2.0,  5.0, 10.0,  5.0],
-	]);
+// 	let mat = Matrix3x4::from([
+// 		[1.0,  2.0,  3.0, -1.0],
+// 		[2.0,  4.0,  7.0,  0.0],
+// 		[2.0,  5.0, 10.0,  5.0],
+// 	]);
 
-	assert_eq!(mat.solve(), Ok(Vector3::new(-5.0, -1.0, 2.0)));
+// 	assert_eq!(mat.solve(), Ok(Vector3::new(-5.0, -1.0, 2.0)));
 
-	let mat = Matrix3x4::from([
-		Vector4::new(1.0, 0.0, 0.0, 4.0),
-		[0.0, 1.0, 0.0, 2.0].into(),
-		(0.0, 0.0, 1.0, 0.0).into(),
-	]);
+// 	let mat = Matrix3x4::from([
+// 		Vector4::new(1.0, 0.0, 0.0, 4.0),
+// 		[0.0, 1.0, 0.0, 2.0].into(),
+// 		(0.0, 0.0, 1.0, 0.0).into(),
+// 	]);
 
-	assert_eq!(mat.solve(), Ok((4.0, 2.0, 0.0).into()));
-}
-#[test]
-fn solve_mat3x2() {
-	let mat = Matrix2x3::from([
-		1.0, 0.0, 69.0,
-		0.0, 1.0, 420.0,
-	]);
+// 	assert_eq!(mat.solve(), Ok((4.0, 2.0, 0.0).into()));
+// }
+// #[test]
+// fn solve_mat3x2() {
+// 	let mat = Matrix2x3::from([
+// 		1.0, 0.0, 69.0,
+// 		0.0, 1.0, 420.0,
+// 	]);
 
-	assert_eq!(mat.solve(), Ok((69.0, 420.0).into()));
+// 	assert_eq!(mat.solve(), Ok((69.0, 420.0).into()));
 
-	let mat = Matrix2x3::from([
-		[69.0, 1337.0, 420.0],
-		[1337.0, 420.0, 69.0],
-	]);
+// 	let mat = Matrix2x3::from([
+// 		[69.0, 1337.0, 420.0],
+// 		[1337.0, 420.0, 69.0],
+// 	]);
 
-	assert_eq!(mat.solve(), Ok([-0.047849655, 0.31660554].into()));
-}
+// 	assert_eq!(mat.solve(), Ok([-0.047849655, 0.31660554].into()));
+// }
 #[test]
 fn mat_neg() {
 	assert_eq!(
-		Matrix3x4::from([
-			1.0, std::f32::consts::SQRT_2, 3.14, -5.0,
-			-123.0, 0.0, -std::f32::consts::FRAC_PI_3, -1.0,
-			0.0, 1.0, -6.28, -1.0,
+		Matrix3x3::from([
+			1.0, std::f32::consts::SQRT_2, 3.14,
+			-123.0, 0.0, -std::f32::consts::FRAC_PI_3,
+			0.0, 1.0, -6.28,
 		]),
-		-Matrix3x4::from([
-			-1.0, -std::f32::consts::SQRT_2, -3.14, 5.0,
-			123.0, -0.0, std::f32::consts::FRAC_PI_3, 1.0,
-			0.0, -1.0, 6.28, 1.0,
+		-Matrix3x3::from([
+			-1.0, -std::f32::consts::SQRT_2, -3.14,
+			123.0, -0.0, std::f32::consts::FRAC_PI_3,
+			0.0, -1.0, 6.28,
 		]),
-	);
-	assert_eq!(
-		Matrix2x3::from([
-			7.0, -std::f32::consts::FRAC_2_PI, -7.2,
-			0.0, 3.13, std::f32::consts::LN_10,
-		]),
-		-Matrix2x3::from([
-			-7.0, std::f32::consts::FRAC_2_PI, 7.2,
-			-0.0, -3.13, -std::f32::consts::LN_10,
-		])
 	);
 }
 #[test]
@@ -114,4 +104,10 @@ fn phi() {
 fn mod_exp() {
 	assert_eq!(11.mod_exp(13, 53), 52);
 	assert_eq!(1.mod_exp(1337, 53), 1);
+}
+#[test]
+fn determinants() {
+	assert_eq!(Matrix3x3::zero().det(), 0.0);
+	assert_eq!(Matrix3x3::identity().det(), 1.0);
+	assert_eq!((Matrix3x3::identity() * 3.0).det(), Float::powi(3.0, 3));
 }

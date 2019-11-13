@@ -1,6 +1,6 @@
 use crate::{Float, Vector4};
 
-use std::{fmt, ops};
+use std::ops;
 
 #[derive(Clone, PartialEq)]
 pub struct Matrix4x4([Vector4; 4]);

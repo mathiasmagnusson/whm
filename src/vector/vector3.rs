@@ -116,11 +116,22 @@ impl std::ops::Sub for Vector3 {
 impl std::ops::Mul<Float> for Vector3 {
 	type Output = Self;
 	fn mul(self, scalar: Float) -> Self::Output {
-		Self ([
+		[
 			self[0] * scalar,
 			self[1] * scalar,
 			self[2] * scalar,
-		])
+		].into()
+	}
+}
+
+impl std::ops::Mul<Vector3> for Float {
+	type Output = Vector3;
+	fn mul(self, vector: Vector3) -> Self::Output {
+		[
+			vector[0] * self,
+			vector[1] * self,
+			vector[2] * self,
+		].into()
 	}
 }
 
